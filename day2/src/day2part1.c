@@ -16,4 +16,5 @@ int main(void) {
     }
     dealloc_input(data);
     printf("forward %d, depth %d, product %d\n", forward, depth, forward * depth);
+    return 0;
 }
