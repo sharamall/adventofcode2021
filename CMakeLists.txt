@@ -11,3 +11,4 @@ project(advent2021)
 
 set(COMPILE_WARN_OPTIONS -Wall -g -O2)
 add_subdirectory(day1)
+add_subdirectory(day2)
