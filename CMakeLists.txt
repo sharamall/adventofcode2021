@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 2.6)
+set(CMAKE_SYSTEM_NAME Linux)
+if (POLICY CMP0072)
+    cmake_policy(SET CMP0072 OLD)
+endif (POLICY CMP0072)
+add_definitions(-DDEBUG -D_DEBUG)
+set(CMAKE_C_FLAGS_DEBUG "-D_DEBUG")
+set(CMAKE_BUILD_TYPE Debug)
+get_filename_component(PROJECT_ROOT_DIR . ABSOLUTE)
+project(advent2021)
+
+set(COMPILE_WARN_OPTIONS -Wall -g -O2)
+add_subdirectory(day1)
