@@ -39,6 +39,7 @@ input *alloc_input(const char *location) {
             *(in->boards + i + 1) = 0;
             in->boards[i] = malloc(sizeof(board));
             in->boards[i]->end = 0;
+            in->boards[i]->win = 0;
             for (int j = 0; j < 25; j++) {
                 space **spaces = &in->boards[i]->_00;
                 spaces[j] = malloc(sizeof(space));
