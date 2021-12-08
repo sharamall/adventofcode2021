@@ -15,6 +15,7 @@ typedef struct {
     space *_03, *_13, *_23, *_33, *_43;
     space *_04, *_14, *_24, *_34, *_44;
     space *end;
+    int win;
 } board;
 typedef struct {
     int *drawn_numbers;
