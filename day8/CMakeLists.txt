@@ -3,6 +3,7 @@ set(PART1_SRC_FILES
         src/input.c
         )
 set(PART2_SRC_FILES
+        src/day8part2.c
         src/input.c
         )
 add_executable(day8part1 ${PART1_SRC_FILES})
