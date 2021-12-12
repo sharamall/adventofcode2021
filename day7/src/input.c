@@ -1,8 +1,4 @@
 //
-// Created by shara on 2021-12-10.
-//
-
-//
 // Created by shara on 2021-12-08.
 //
 #include <stdlib.h>
