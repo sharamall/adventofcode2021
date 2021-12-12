@@ -16,11 +16,13 @@ input_row *alloc_input(const char *src) {
             for (int j = 0; j < 10; j++) {
                 in[i].digits[j] = malloc(sizeof(char) * 8);
                 char c[7];
-                memset(&c, 7, sizeof(char));
+                memset(&c, 0, sizeof(char) * 7);
                 memset(in[i].digits[j], 0, sizeof(char) * 8);
                 int read_letters = fscanf(file, "%s", (char *)&c);
                 if (read_letters) {
-                    memcpy(in[i].digits[j], c, strlen(c));
+                    size_t strlen_c = strlen(c);
+                    memcpy(in[i].digits[j], c, strlen_c);
+                    in[i].digits[j][7] = 0;
                 } else {
                     printf("bad input at %d\n", i);
                     dealloc_input(in);
@@ -32,12 +34,13 @@ input_row *alloc_input(const char *src) {
             fscanf(file, "%*c%*c");
             for (int j = 0; j < 4; j++) {
                 in[i].output[j] = malloc(sizeof(char) * 8);
-                char c[4];
-                memset(&c, 8, sizeof(char));
+                char c[7];
+                memset(&c, 0, sizeof(char) * 7);
                 memset(in[i].output[j], 0, sizeof(char) * 8);
                 int read_letters = fscanf(file, "%s", (char *)&c);
                 if (read_letters) {
                     memcpy(in[i].output[j], c, strlen(c));
+                    in[i].output[j][7] = 0;
                 } else {
                     printf("bad input at %d\n", i);
                     dealloc_input(in);
@@ -57,18 +60,22 @@ input_row *alloc_input(const char *src) {
 void dealloc_input(input_row *input) {
     if (input) {
         for (int i = 0; i < 200; i++) {
-            for (int j = 0; j < 10; j++) {
-                if (input[i].digits[j]) {
-                    free(input[i].digits[j]);
+            if (input[i].digits) {
+                for (int j = 0; j < 10; j++) {
+                    if (input[i].digits[j]) {
+                        free(input[i].digits[j]);
+                    }
                 }
+                free(input[i].digits);
             }
-            for (int j = 0; j < 4; j++) {
-                if (input[i].output[j]) {
-                    free(input[i].output[j]);
+            if (input[i].output) {
+                for (int j = 0; j < 4; j++) {
+                    if (input[i].output[j]) {
+                        free(input[i].output[j]);
+                    }
                 }
+                free(input[i].output);
             }
-            free(input[i].digits);
-            free(input[i].output);
         }
         free(input);
     }
