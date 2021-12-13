@@ -5,6 +5,7 @@
 #ifndef ADVENT2021_DAY10_H
 #define ADVENT2021_DAY10_H
 #define IN_LENGTH 94
+
 typedef struct {
     void **items;
     int size;
