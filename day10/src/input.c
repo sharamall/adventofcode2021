@@ -18,6 +18,7 @@ void push_back(list **pp_l, void *item) {
         } else if (p_l->size == p_l->capacity) {
             void **new_arr = malloc(sizeof(void *) * p_l->capacity * 2);
             memcpy(new_arr, p_l->items, p_l->capacity * sizeof(void *));
+            memset(new_arr + p_l->size, 0, p_l->capacity);
             free(p_l->items);
             p_l->items = new_arr;
             p_l->capacity *= 2;

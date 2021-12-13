@@ -297,7 +297,7 @@ int main(void) {
                 }
             }
         }
-        sum += row_sum(input[i].output, &known);;
+        sum += row_sum(input[i].output, &known);
     }
     dealloc_input(input);
     printf("total sum %d.\n", sum);

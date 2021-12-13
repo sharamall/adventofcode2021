@@ -1,13 +1,15 @@
 //
-// Created by shara on 2021-12-12.
+// Created by shara on 2021-12-13.
 //
+
 #include "day10.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main(void) {
     char **lines = alloc_input("../../day10/resources/input.txt");
-
+    list *scores = 0;
     int illegal_sum = 0;
     for (int i = 0; i < IN_LENGTH; i++) {
         list *l = 0;
@@ -50,10 +52,41 @@ int main(void) {
             }
             c_off++;
         }
+        if (!lines[i][c_off] && l->size > 0) {
+            int64_t score = 0;
+            for (int j = l->size - 1; j >= 0; j--) {
+                char back_char = (char)(l->items[j]);
+                if (back_char == '(') {
+                    score *= 5;
+                    score += 1;
+                } else if (back_char == '[') {
+                    score *= 5;
+                    score += 2;
+                } else if (back_char == '{') {
+                    score *= 5;
+                    score += 3;
+                } else if (back_char == '<') {
+                    score *= 5;
+                    score += 4;
+                }
+            }
+            push_back(&scores, score);
+            int j;
+            for (j = 0; j < scores->size; j++) {
+                long long int bigger_score = (long long)(scores->items[j]);
+                if (bigger_score > score) {
+                    memcpy(scores->items + j + 1, scores->items + j, sizeof(void *) * (scores->size - j - 1));
+                    scores->items[j] = score;
+                    break;
+                }
+            }
+        }
         free(l->items);
         free(l);
     }
-    printf("sum %d\n", illegal_sum);
+    printf("middle sum %lld\n", (long long)(scores->items[scores->size / 2]));
+    free(scores->items);
+    free(scores);
     dealloc_input(lines);
     return 0;
 }
