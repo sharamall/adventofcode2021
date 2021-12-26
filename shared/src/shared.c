@@ -33,10 +33,41 @@ void dealloc_list(list **p_list, int free_items) {
         if (free_items) {
             for (int i = 0; i < l->size; i++) {
                 free(l->items[i]);
-            };
+            }
         }
         free(l->items);
         free(l);
         *p_list = 0;
     }
+}
+
+void *remove_at(list **pp_l, int index) {
+    if (pp_l) {
+        list *p_l = *pp_l;
+        if (p_l) {
+            if (p_l->size > index) {
+                void *item = p_l->items[index];
+                // TODO memcpy
+                for (int i = index + 1; i < p_l->size; i++) {
+                    p_l->items[i - 1] = p_l->items[i];
+                }
+                p_l->size--;
+                return item;
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    } else {
+        return 0;
+    }
+}
+
+void *zalloc(size_t c) {
+    return calloc(1, c);
+}
+
+vector3i v3i_sub(vector3i *a, vector3i *b) {
+    return (vector3i){a->x - b->x, a->y - b->y, a->z - b->z};
 }
