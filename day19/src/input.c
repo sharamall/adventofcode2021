@@ -33,11 +33,13 @@ scanner *alloc_input(const char *file) {
                 c = fgetc(f);
             }
 
-            vector3 *beacons = malloc(sizeof(vector3) * l->size);
+            beacon *beacons = malloc(sizeof(beacon) * l->size);
             for (int b = 0; b < l->size; b++) {
-                beacons[b] = *(vector3 *)l->items[b];
+                beacons[b].location = *(vector3 *)l->items[b];
+                beacons[b].distance_to_neighbours = 0;
             }
             s[i].beacons = beacons;
+            s[i].num_beacons = l->size;
             dealloc_list(&l, 1);
         }
         fclose(f);

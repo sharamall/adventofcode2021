@@ -14,7 +14,6 @@ typedef struct {
     int p1_pos, p2_pos;
     int p1_score, p2_score;
     int roll_sum;
-    int die_roll;
     int p1_turn;
 } game;
 
