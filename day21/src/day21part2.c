@@ -21,8 +21,8 @@ typedef struct {
 
 results ******create_cache() {
     results ******cache = zalloc(sizeof(results *****) * 2);
-    cache[0] = zalloc(sizeof(results ****) * 10);
-    cache[1] = zalloc(sizeof(results ****) * 10);
+    cache[0] = zalloc(sizeof(results ****) * 11);
+    cache[1] = zalloc(sizeof(results ****) * 11);
 
     return cache;
 }
@@ -105,8 +105,15 @@ cached_result get_cached_item(results ******r, game g) {
         p2_score = p1_score[g.p2_score];
         existed = 0;
     }
+    if ((size_t)p2_score < 0x1000) {
+        printf("whack\n");
+    }
 
-    return (cached_result){.r=p2_score + g.p2_score, .existed=existed};
+    results *p = p2_score + g.p2_score;
+    if ((size_t)p == 0x123) {
+        printf("heck\n");
+    }
+    return (cached_result){.r=p, .existed=existed};
 }
 
 void run_game(results ******r, game g) {
@@ -127,9 +134,9 @@ void run_game(results ******r, game g) {
                         res.r->p1_wins++;
                     } else {
                         if (res.existed) {
-                            cached_result res1 = get_cached_item(r, g);
-                            res1.r->p1_wins += res1.r->p1_wins;
-                            res1.r->p2_wins += res1.r->p2_wins;
+//                            cached_result res1 = get_cached_item(r, g);
+//                            res1.r->p1_wins += res1.r->p1_wins;
+//                            res1.r->p2_wins += res1.r->p2_wins;
                         } else {
                             run_game(r, new_game);
                         }
@@ -146,9 +153,9 @@ void run_game(results ******r, game g) {
                         res.r->p2_wins++;
                     } else {
                         if (res.existed) {
-                            cached_result res1 = get_cached_item(r, g);
-                            res1.r->p1_wins += res1.r->p1_wins;
-                            res1.r->p2_wins += res1.r->p2_wins;
+//                            cached_result res1 = get_cached_item(r, g);
+//                            res1.r->p1_wins += res1.r->p1_wins;
+//                            res1.r->p2_wins += res1.r->p2_wins;
                         } else {
                             run_game(r, new_game);
                         }
@@ -175,8 +182,8 @@ int main(void) {
     results ******r = create_cache();
     game g = {p1, p2, 0, 0, 1};
     run_game(r, g);
-//    free_cache(r);
 
     printf("p1 wins %ld, p2 win %ld", r[1][p1][p2][0][0]->p1_wins, r[1][p1][p2][0][0]->p2_wins);
+    free_cache(r);
     return 0;
 }
