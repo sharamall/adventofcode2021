@@ -6,7 +6,7 @@
 #define ADVENT2021_DAY19_H
 
 #include "shared.h"
-#define SCANNERS 5
+#define SCANNERS 29
 #define OVERLAP 12
 
 typedef struct {
