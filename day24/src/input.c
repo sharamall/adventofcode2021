@@ -30,6 +30,10 @@ instruction *alloc_input(const char *file) {
                 cur->instruction = DIV;
             } else if (instruction_char_2 == 'o') {
                 cur->instruction = MOD;
+            } else if (instruction_char_2 == 'q') {
+                cur->instruction = EQL;
+            } else {
+                printf("Unknown instruction %c\n", instruction_char_2);
             }
             if (start) {
                 prev->next = cur;
@@ -65,7 +69,6 @@ instruction *alloc_input(const char *file) {
                     cur->reg_src = second_operand[0];
                 }
             }
-            printf("");
         }
         fclose(f);
         return start;

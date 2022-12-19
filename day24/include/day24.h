@@ -9,6 +9,7 @@
 #define MUL 3
 #define DIV 4
 #define MOD 5
+#define EQL 6
 
 struct instruction;
 typedef struct instruction instruction;
